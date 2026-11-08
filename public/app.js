@@ -151,7 +151,7 @@
     return `<div class="field ${type ? 't-' + type : 'empty'}">
       <div class="field-label">Field ${i + 1}</div>
       ${type ? `<div class="stack">${f.slice(-Math.min(f.length, mine ? 6 : 4)).map((c, k) => `<div class="stack-card" style="--k:${k}">${beanSVG(c.t, mine ? 38 : 26)}</div>`).join('')}</div>
-        <div class="field-info"><b>${f.length}</b> ${BEANS[type].name}${f.length > 1 ? 's' : ''}<br><span class="coin">${coins}</span> if harvested now</div>` : '<div class="field-empty">empty</div>'}
+        <div class="field-info"><b>${f.length}</b> ${BEANS[type].name}${f.length > 1 ? 's' : ''}<span class="hv"><br><span class="coin">${coins}</span> if harvested now</span></div>` : '<div class="field-empty">empty</div>'}
       ${mine && f.length ? `<button class="small" data-action="harvest" data-field="${i}" ${canHarvest ? '' : 'disabled title="Bean protection rule: you can\'t harvest a lone bean while another field has more than one."'}>Harvest for ${coins}</button>` : ''}
       ${plantBtn}
     </div>`;
@@ -212,7 +212,7 @@
 
     let resultHTML = '';
     if (g.phase === 'over') {
-      resultHTML = `<div class="panel results"><h2>🏆 ${esc(g.results[0].name)} wins!</h2><ol>${g.results.map((r) => `<li><b>${esc(r.name)}</b>: ${r.coins} coins <small>(${r.hand} cards left in hand)</small></li>`).join('')}</ol>
+      resultHTML = `<div class="panel results"><h2>${esc(g.results[0].name)} wins!</h2><ol>${g.results.map((r) => `<li><b>${esc(r.name)}</b>: ${r.coins} coins <small>(${r.hand} cards left in hand)</small></li>`).join('')}</ol>
         <p class="hint">Ties go to ${g.rules.tiebreak === 'hand' ? 'the player with the most cards left in hand' : 'the player seated furthest from the starting player'}.</p>
         ${room.hostId === room.you ? '<button class="primary" data-action="start">Play again</button>' : ''}</div>`;
     }
@@ -265,7 +265,7 @@
       ${resultHTML}
       <section class="opponents">${others.map((p) => `
         <div class="opp ${p.id === g.active ? 'active' : ''}">
-          <div class="opp-head"><span class="dot ${room.members.find((m) => m.id === p.id)?.online ? 'on' : ''}"></span><b>${esc(p.name)}</b>${p.id === g.startPlayer ? ' <span title="Starting player">⭐</span>' : ''}
+          <div class="opp-head"><span class="dot ${room.members.find((m) => m.id === p.id)?.online ? 'on' : ''}"></span><b>${esc(p.name)}</b>${p.id === g.startPlayer ? ' <span class="muted" title="Starting player">· 1st</span>' : ''}
             <span class="opp-stats"><span title="Cards in hand">🂠 ${p.handCount}</span> <span class="coin" title="Coins">${p.coins}</span></span></div>
           <div class="opp-fields">${p.fields.map((_, i) => fieldHTML(p, i, false, g)).join('')}</div>
           ${p.pending.length ? `<div class="pending small">to plant: ${p.pending.map((c) => `<span class="chip t-${c.t}">${beanSVG(c.t, 16)}${BEANS[c.t].name}</span>`).join('')}</div>` : ''}
