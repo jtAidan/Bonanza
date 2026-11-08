@@ -1,0 +1,13 @@
+{
+  "name": "spill-the-beans",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Real-time multiplayer bean planting and trading card game for 3-8 friends",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node test/simulate.js"
+  },
+  "engines": { "node": ">=18" },
+  "dependencies": { "ws": "^8.18.0" }
+}
